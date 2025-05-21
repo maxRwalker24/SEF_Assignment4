@@ -17,6 +17,52 @@ public class TestAddPerson {
         Person person = new Person();
         assertTrue(person.addPerson(id, firstName, lastName, address, birthdate));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+        "12s_d%&fAB, Max, Walker, 32|Highland Street|Melbourne|Victoria|Australia, 15-11-1990",
+        "AAs_d%&fAB, Max, Walker, 32|Highland Street|Melbourne|Victoria|Australia, 15-11-1990",
+        "!!s_d%&fAB, Max, Walker, 32|Highland Street|Melbourne|Victoria|Australia, 15-11-1990",
+    })
+    void testAddPerson_InvalidID(String id, String firstName, String lastName, String address, String birthdate) {
+        Person person = new Person();
+        assertFalse(person.addPerson(id, firstName, lastName, address, birthdate));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "56s_d%&fAB, Max, Walker, AZ|Highland Street|Melbourne|Victoria|Australia, 15-11-1990",
+        "56s_d%&fAB, Max, Walker, 32|H12345|Melbourne|Victoria|Australia, 15-11-1990",
+        "56s_d%&fAB, Max, Walker, 32|Highland Street|Melb2ourne|Victoria|Australia, 15-11-1990",
+        "56s_d%&fAB, Max, Walker, 32|Highland Street|Melbourne|Tasmania|Australia, 15-11-1990",
+        "56s_d%&fAB, Max, Walker, 32|Highland Street|Melbourne|Victoria|France, 15-11-1990",
+    })
+    void testAddPerson_InvalidAddress(String id, String firstName, String lastName, String address, String birthdate) {
+        Person person = new Person();
+        assertFalse(person.addPerson(id, firstName, lastName, address, birthdate));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "56s_d%&fAB, Max, Walker, 32|Highland Street|Melbourne|Victoria|Australia, 15/11/1990",
+        "78AA@@BBCC, Jane, Smith, 45|Main Avenue|Sydney|Victoria|Australia, 00-45-1985",
+        "98ZZ##YYXX, John, Doe, 12|Park Road|Brisbane|Victoria|Australia, 31-December-2000"
+    })
+    void testAddPerson_InvalidDate(String id, String firstName, String lastName, String address, String birthdate) {
+        Person person = new Person();
+        assertFalse(person.addPerson(id, firstName, lastName, address, birthdate));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "11s_d%&fAB, Max, Walker, 1A|Highland St.|Melb|Vic|Aus, 00/11/1990",
+        "78AA@@BBCCZ, Jane, Smith, A45|Main' Avenue|Sydney|VIC|Australia, 00-45-1985",
+        "98ZZ, John, Doe, Six|Park Rd.|Brisbane|3078|Australia, 31-December-2000"
+    })
+    void testAddPerson_InvalidInputs(String id, String firstName, String lastName, String address, String birthdate) {
+        Person person = new Person();
+        assertFalse(person.addPerson(id, firstName, lastName, address, birthdate));
+    }
     
     // @Test
 
