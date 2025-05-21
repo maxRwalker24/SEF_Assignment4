@@ -56,23 +56,10 @@ public class Person {
         }
         
         return false;
-
-    //Condition 1: PersonID should be exactly 10 characters long;
-    //the first two characters should be numbers between 2 and 9, there should be at least two special characters between characters 3 and 8,
-    //and the last two characters should be upper case letters (A - Z). Example: "565_d&fAB"
-    //Condition 2: The address of the Person should follow the following format: Street Number Street City State Country.
-    //The State should be only Victoria. Example: 32|Highland Street Melbourne Victoria|Australia.
-    //Condition 3: The format of the birth date of the person should follow the following format: DD-MM-YYYY. Example: 15-11-1990
-    //Instruction: If the Person's information meets the above conditions and any other conditions you may want to consider,
-    //the information should be inserted into a TXT file, and the addPerson function should return true.
-    //Otherwise, the information should not be inserted into the TXT file, and the addPerson function should return false.
-
-
-
     
     }
 
-    // Anthony to implement
+    
     public boolean updatePersonalDetails() {
     //TODO: This method allows updating a given person's ID, firstName, lastName, address and birthday in a TXT file.
     //Changing personal details will not affect their demerit points or the suspension status.
@@ -91,7 +78,7 @@ public class Person {
     return true;
     }
     
-    // Ajay to implement
+    
     public String addDemeritPoints () {
     //TODO: This method adds demerit points for a given person in a TXT file.
     //Condition 1: The format of the date of the offense should follow the following format: DD-MM-YYYY. Example: 15-11-1990
