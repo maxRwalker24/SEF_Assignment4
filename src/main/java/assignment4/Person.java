@@ -1,7 +1,13 @@
 package assignment4;
 
 import java.util.HashMap;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Date;
+
+import java.io.PrintWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class Person {
 
@@ -29,7 +35,23 @@ public class Person {
         InputValidator iv = new InputValidator();
 
         if (iv.isValidDate(birthdate) && iv.isValidID(personID) && iv.idValidAddress(address)) {
-            // Person person = new Person();
+
+            Person person = new Person();
+            person.personID = personID;
+            person.firstName = firstName;
+            person.lastName = lastName;
+            person.address = address;
+            person.birthdate = birthdate;
+
+            try {
+                FileOutputStream fileStream = new FileOutputStream("Person.txt", true);
+                PrintWriter outFS = new PrintWriter(fileStream);
+                outFS.println(personID + " " + firstName + " " + lastName + " " + address + " " + birthdate);
+                outFS.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File could not be created or opened: " + e.getMessage());
+            }
+
             return true;
         }
         

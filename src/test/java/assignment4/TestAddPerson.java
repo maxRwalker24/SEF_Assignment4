@@ -1,11 +1,24 @@
 package assignment4;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+//import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class TestAddPerson {
+
+    //@BeforeEach
+    public void clearFile() throws IOException {
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream("Person.txt", false))) {
+            writer.print("");
+        }
+    }
 
     @ParameterizedTest
     @CsvSource({
