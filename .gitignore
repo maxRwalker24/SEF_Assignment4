@@ -1,16 +1,6 @@
 # Maven build folder
 /target/
 
-# Eclipse files
-.project
-.classpath
-.settings/
-
-# IntelliJ IDEA files
-.idea/
-*.iml
-out/
-
 # VS Code files
 .vscode/
 
