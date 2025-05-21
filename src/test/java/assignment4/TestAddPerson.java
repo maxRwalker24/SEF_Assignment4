@@ -42,7 +42,7 @@ public class TestAddPerson {
         List<String> lines = Files.readAllLines(OUTPUT_PATH);
         String lastLine = lines.get(lines.size() - 1);
 
-        // Build the expected line format (adjust if your method formats differently)
+        // Build the expected line format 
         String expectedLine = String.format("%s %s %s %s %s", id, firstName, lastName, address, birthdate);
 
         assertEquals(expectedLine, lastLine, "Written line does not match expected output.");
