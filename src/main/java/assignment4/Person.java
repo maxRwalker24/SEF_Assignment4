@@ -13,9 +13,28 @@ public class Person {
     private HashMap<Date, Integer> demeritPoints; // A variable that holds the demerit points with the offense day
     private boolean isSuspended;
 
+    // public Person(String personID, String firstName, String lastName, String address, String birthdate) {
+    //     this.personID = personID;
+    //     this.firstName = firstName;
+    //     this.lastName = lastName;
+    //     this.address = address;
+    //     this.birthdate = birthdate;
+    //     this.demeritPoints = new HashMap<>(); 
+    //     this.isSuspended = false; // default value
+    // }
+
     // Max to implement
-    public boolean addPerson () {
-    //TODO: This method adds information about a person to a TXT file.
+    public boolean addPerson (String personID, String firstName, String lastName, String address, String birthdate) {
+
+        InputValidator iv = new InputValidator();
+
+        if (iv.isValidDate(birthdate) && iv.isValidID(personID) && iv.idValidAddress(address)) {
+            // Person person = new Person();
+            return true;
+        }
+        
+        return false;
+
     //Condition 1: PersonID should be exactly 10 characters long;
     //the first two characters should be numbers between 2 and 9, there should be at least two special characters between characters 3 and 8,
     //and the last two characters should be upper case letters (A - Z). Example: "565_d&fAB"
@@ -28,7 +47,7 @@ public class Person {
 
 
 
-    return true;
+    
     }
 
     // Anthony to implement
@@ -66,6 +85,65 @@ public class Person {
 
     return "Sucess";
     }
+
+    // Getters
+    public String getPersonID() {
+        return personID;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public HashMap<Date, Integer> getDemeritPoints() {
+        return demeritPoints;
+    }
+
+    public boolean isSuspended() {
+        return isSuspended;
+    }
+
+    // Setters
+    public void setPersonID(String personID) {
+        this.personID = personID;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public void setDemeritPoints(HashMap<Date, Integer> demeritPoints) {
+        this.demeritPoints = demeritPoints;
+    }
+
+    public void setSuspended(boolean suspended) {
+        isSuspended = suspended;
+    }
+
 
 
 }
