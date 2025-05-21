@@ -11,6 +11,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 //import org.junit.jupiter.api.Test;
@@ -19,13 +22,26 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 public class TestAddPerson {
 
-    private static final Path OUTPUT_PATH = Paths.get("Person.txt");
+    private static final Path VALID_OUTPUT_PATH = Paths.get("Person.txt");
+    private static final Path EXPECTED_OUTPUT_PATH = Paths.get("Person_expected.txt");
     
-    @BeforeEach
-    public void clearFile() throws IOException {
+    @BeforeAll
+    public static void clearValidOutput() throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream("Person.txt", false))) {
             writer.print("");
         }
+    }
+
+    @AfterAll
+    public static void verifyPersonFileOutput() throws IOException {
+        // Read actual output
+        List<String> actualLines = Files.readAllLines(VALID_OUTPUT_PATH);
+
+        // Read expected output
+        List<String> expectedLines = Files.readAllLines(EXPECTED_OUTPUT_PATH);
+
+        // Assert equality
+        Assertions.assertEquals(expectedLines, actualLines, "Final output in Person.txt does not match expected output.");
     }
 
     @ParameterizedTest
@@ -39,7 +55,7 @@ public class TestAddPerson {
         assertTrue(person.addPerson(id, firstName, lastName, address, birthdate));
 
         // Read the last line of the file
-        List<String> lines = Files.readAllLines(OUTPUT_PATH);
+        List<String> lines = Files.readAllLines(VALID_OUTPUT_PATH);
         String lastLine = lines.get(lines.size() - 1);
 
         // Build the expected line format 
@@ -59,10 +75,6 @@ public class TestAddPerson {
         Person person = new Person();
         assertFalse(person.addPerson(id, firstName, lastName, address, birthdate));
 
-
-        // Assert: file is still empty
-        File file = new File("Person.txt");
-        assertEquals(0, file.length(), "File should be empty after invalid input");
     }
 
     @ParameterizedTest
@@ -77,9 +89,6 @@ public class TestAddPerson {
         Person person = new Person();
         assertFalse(person.addPerson(id, firstName, lastName, address, birthdate));
 
-        // Assert: file is still empty
-        File file = new File("Person.txt");
-        assertEquals(0, file.length(), "File should be empty after invalid input");
     }
 
     @ParameterizedTest
@@ -92,9 +101,6 @@ public class TestAddPerson {
         Person person = new Person();
         assertFalse(person.addPerson(id, firstName, lastName, address, birthdate));
 
-        // Assert: file is still empty
-        File file = new File("Person.txt");
-        assertEquals(0, file.length(), "File should be empty after invalid input");
     }
 
     @ParameterizedTest
@@ -107,9 +113,7 @@ public class TestAddPerson {
         Person person = new Person();
         assertFalse(person.addPerson(id, firstName, lastName, address, birthdate));
 
-        // Assert: file is still empty
-        File file = new File("Person.txt");
-        assertEquals(0, file.length(), "File should be empty after invalid input");
+
     }
 
     // private void assertFileIsEmpty(String fileName) {
