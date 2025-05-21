@@ -49,10 +49,41 @@ public class InputValidator {
 
 
     public boolean idValidAddress(String address) {
-        Pattern pattern = Pattern.compile("^[2-9]{2}.{6}[A-Z]{2}$");
-        Matcher matcher = pattern.matcher(address);
+        // Pattern pattern = Pattern.compile("^[2-9]{2}.{6}[A-Z]{2}$");
+        // Matcher matcher = pattern.matcher(address);
 
-        if (!matcher.matches()) {  // Use matches() to match entire string
+        // if (!matcher.matches()) {  // Use matches() to match entire string
+        //     return false;
+        // }
+
+        String [] addressArray = address.split("\\|");
+
+        if (addressArray.length != 5) {
+            return false;
+        }
+
+        for (int i = 0; i < addressArray[0].length(); ++i) {
+            char ch = addressArray[0].charAt(i);
+            if (!Character.isDigit(ch)) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < addressArray[1].length(); ++i) {
+            char ch = addressArray[1].charAt(i);
+            if (Character.isDigit(ch)) {
+                return false;
+            }
+        }
+
+        for (int i = 0; i < addressArray[2].length(); ++i) {
+            char ch = addressArray[2].charAt(i);
+            if (Character.isDigit(ch)) {
+                return false;
+            }
+        }
+
+        if (!addressArray[3].equals("Victoria") || !addressArray[4].equals("Australia")) {
             return false;
         }
 
