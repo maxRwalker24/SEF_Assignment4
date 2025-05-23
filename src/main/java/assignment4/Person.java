@@ -79,7 +79,7 @@ public class Person {
     }
     
     
-    public String addDemeritPoints () {
+    public String addDemeritPoints (String date, int points) {
     //TODO: This method adds demerit points for a given person in a TXT file.
     //Condition 1: The format of the date of the offense should follow the following format: DD-MM-YYYY. Example: 15-11-1990
     //Condition 2: The demerit points must be a whole number between 1-6
