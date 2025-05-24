@@ -4,10 +4,15 @@ import java.util.HashMap;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 import java.io.PrintWriter;
 // import java.io.FileOutputStream;
 // import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 public class Person {
 
@@ -16,7 +21,7 @@ public class Person {
     private String lastName;
     private String address;
     private String birthdate;
-    private HashMap<Date, Integer> demeritPoints; // A variable that holds the demerit points with the offense day
+    private HashMap<LocalDate, Integer> demeritPoints; // A variable that holds the demerit points with the offense day
     private boolean isSuspended;
 
     // public Person(String personID, String firstName, String lastName, String address, String birthdate) {
@@ -34,7 +39,7 @@ public class Person {
 
         InputValidator iv = new InputValidator();
 
-        if (iv.isValidDate(birthdate) && iv.isValidID(personID) && iv.idValidAddress(address)) {
+        if (iv.isValidDate(birthdate) && iv.isValidID(personID) && iv.isValidAddress(address)) {
 
             Person person = new Person();
             person.personID = personID;
@@ -80,20 +85,86 @@ public class Person {
     
     
     public String addDemeritPoints (String date, int points) {
-    //TODO: This method adds demerit points for a given person in a TXT file.
-    //Condition 1: The format of the date of the offense should follow the following format: DD-MM-YYYY. Example: 15-11-1990
-    //Condition 2: The demerit points must be a whole number between 1-6
-    //Condition 3: If the person is under 21, the isSuspended variable should be set to true if the total demerit points within two years exceed 6.
-    //If the person is over 21, the isSuspended variable should be set to true if the total demerit points within two years exceed 12.
-    //Instruction: If the above conditions and any other conditions you may want to consider are met, the demerit points for a person should be inserted into the TXT file,
-    //and the addDemeritPoints function should return "Sucess". Otherwise, the addDemeritPoints function should return "Failed"
+    // Create a new object of inputValidator
+    InputValidator iv = new InputValidator();
+    
+    if (iv.isValidDate(date) && iv.isValidPoints(points)) {
+        // Firstly convert the string date to a date function to allow storage in hashMap
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        // Create a variable to store the new date
+        LocalDate offenseDate;
+        // Try conversion of date
+        try {
+            offenseDate = LocalDate.parse(date, dateFormat);
+        }
+        catch (Exception e) {
+            return "Failed";
+        }
 
+        // Grab the existing hashmap to allow for updating
+        HashMap<LocalDate, Integer> existingPoints = getDemeritPoints();
+        // If the person doesnt have any points create a new hashmap
+        if(existingPoints == null) {
+            existingPoints = new HashMap<>();
+        }
 
+        // Insert new demerit into the hashMap
+        existingPoints.put(offenseDate, points);
+        setDemeritPoints(existingPoints);
 
+        // Now the check for license suspension is started
+        int userAge;
 
+        // Compare the users birthdate to the current date
+        LocalDate currentDate = LocalDate.now();
+        LocalDate userBirthdate = LocalDate.parse(getBirthdate(), dateFormat);
+        userAge = Period.between(userBirthdate, currentDate).getYears();
 
-    return "Success";
+        // Figure out how many existing demerit points the driver has in the last two years
+        LocalDate twoYearsAgo = currentDate.minusYears(2);
+        int driversRecentDemeritPoints = 0;
+
+        // Loop through all hash map entries but only add entries from the last two years
+        for (Map.Entry<LocalDate, Integer> entry : existingPoints.entrySet()) {
+            LocalDate dateInccured = entry.getKey();
+            int pointsIncurred = entry.getValue();
+
+            if (!dateInccured.isBefore(twoYearsAgo)) {
+                driversRecentDemeritPoints += pointsIncurred;
+            }
+        }
+
+        // Check the demerits of the driver and set to isSuspended if needed
+        // Start with under 21's
+        if (userAge < 21) {
+            if (driversRecentDemeritPoints >= 7) {
+                setSuspended(true);
+            }
+        }
+        // Moving on to all remaining drivers
+        else {
+            if (driversRecentDemeritPoints >= 13) {
+                setSuspended(true);
+            }
+        }
+
+        // Print to a txt file
+        try {
+                FileOutputStream fileStream = new FileOutputStream("Demerit.txt", true);
+                PrintWriter outFS = new PrintWriter(fileStream);
+                outFS.println(personID + " " + offenseDate.format(dateFormat) + " " + points);
+                outFS.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File could not be created or opened: " + e.getMessage());
+            }
+        return "Success";
+        }
+        else {
+            return "Failed";
+        }
     }
+
+
 
     // Getters
     public String getPersonID() {
@@ -116,7 +187,7 @@ public class Person {
         return birthdate;
     }
 
-    public HashMap<Date, Integer> getDemeritPoints() {
+    public HashMap<LocalDate, Integer> getDemeritPoints() {
         return demeritPoints;
     }
 
@@ -145,7 +216,7 @@ public class Person {
         this.birthdate = birthdate;
     }
 
-    public void setDemeritPoints(HashMap<Date, Integer> demeritPoints) {
+    public void setDemeritPoints(HashMap<LocalDate, Integer> demeritPoints) {
         this.demeritPoints = demeritPoints;
     }
 

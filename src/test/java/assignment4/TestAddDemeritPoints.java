@@ -95,19 +95,20 @@ public class TestAddDemeritPoints {
 
         // Read file lines
         List<String> lines = Files.readAllLines(VALID_OUTPUT_PATH);
-        List<String> expectedLines = Files.readAllLines(EXPECTED_OUTPUT_PATH);
+        String lastLine = lines.get(lines.size() - 1);
+        String expectedLine = person.getPersonID() + " " + date + " " + demeritPoints;
 
         // Compare file lines
-        assertEquals(expectedLines, lines, "Demerit output does not match expected output.");
+        assertEquals(expectedLine, lastLine, "Demerit output does not match expected output.");
     }
 
 
     @ParameterizedTest
     @CsvSource({
         "10.09.2001, 3",
-        "10/09/01, 3",
-        "10/may/2001, 3",
-        "101/09/2001, 3"
+        "10-09-01, 3",
+        "10-may-2001, 3",
+        "101-09-2001, 3"
     })
 
     // Testing for invalid date inputs
@@ -124,9 +125,9 @@ public class TestAddDemeritPoints {
 
     @ParameterizedTest
     @CsvSource({
-        "10/09/2001, 0",
-        "10/09/2001, 7",
-        "10/09/2001, -1",
+        "10-09-2001, 0",
+        "10-09-2001, 7",
+        "10-09-2001, -1",
     })
 
     // Testing for invalid demerit points
@@ -135,7 +136,11 @@ public class TestAddDemeritPoints {
         String outcome = person.addDemeritPoints(date, demeritPoints);
         assertEquals("Failed", outcome);
     }
-    
+
+    // Test over 21 suspensions
+
+
+    // Test under 21 suspensions
 
 
 
