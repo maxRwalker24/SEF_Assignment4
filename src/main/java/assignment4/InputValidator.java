@@ -48,7 +48,7 @@ public class InputValidator {
     }
 
 
-    public boolean idValidAddress(String address) {
+    public boolean isValidAddress(String address) {
         String regex = "^\\d+\\|[A-Za-z ]+\\|[A-Za-z ]+\\|Victoria\\|Australia$";
         return address.matches(regex);
     
@@ -84,6 +84,14 @@ public class InputValidator {
         // }
 
         // return true;
+    }
+
+    // Simple function to assess if demerits are within bounds 1-6
+    public boolean isValidPoints(int demerit) {
+        if (demerit >= 1 && demerit <= 6) {
+            return true;
+        }
+        else return false;
     }
 
 

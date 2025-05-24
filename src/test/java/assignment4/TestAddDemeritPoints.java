@@ -135,8 +135,12 @@ public class TestAddDemeritPoints {
         String outcome = person.addDemeritPoints(date, demeritPoints);
         assertEquals("Failed", outcome);
     }
-    
 
+    // Test over 21 suspensions
+
+
+    // Test under 21 suspensions
+    
 
 
 }
