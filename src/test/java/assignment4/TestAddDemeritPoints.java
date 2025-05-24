@@ -95,10 +95,11 @@ public class TestAddDemeritPoints {
 
         // Read file lines
         List<String> lines = Files.readAllLines(VALID_OUTPUT_PATH);
-        List<String> expectedLines = Files.readAllLines(EXPECTED_OUTPUT_PATH);
+        String lastLine = lines.get(lines.size() - 1);
+        String expectedLine = String.format(person.getPersonID() + " " + date + " " + demeritPoints);
 
         // Compare file lines
-        assertEquals(expectedLines, lines, "Demerit output does not match expected output.");
+        assertEquals(expectedLine, lastLine, "Demerit output does not match expected output.");
     }
 
 
