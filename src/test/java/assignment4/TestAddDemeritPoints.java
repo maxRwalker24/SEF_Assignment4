@@ -105,9 +105,9 @@ public class TestAddDemeritPoints {
     @ParameterizedTest
     @CsvSource({
         "10.09.2001, 3",
-        "10/09/01, 3",
-        "10/may/2001, 3",
-        "101/09/2001, 3"
+        "10-09-01, 3",
+        "10-may-2001, 3",
+        "101-09-2001, 3"
     })
 
     // Testing for invalid date inputs
@@ -124,9 +124,9 @@ public class TestAddDemeritPoints {
 
     @ParameterizedTest
     @CsvSource({
-        "10/09/2001, 0",
-        "10/09/2001, 7",
-        "10/09/2001, -1",
+        "10-09-2001, 0",
+        "10-09-2001, 7",
+        "10-09-2001, -1",
     })
 
     // Testing for invalid demerit points
@@ -140,7 +140,7 @@ public class TestAddDemeritPoints {
 
 
     // Test under 21 suspensions
-    
+
 
 
 }

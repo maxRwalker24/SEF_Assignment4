@@ -90,7 +90,7 @@ public class Person {
     
     if (iv.isValidDate(date) && iv.isValidPoints(points)) {
         // Firstly convert the string date to a date function to allow storage in hashMap
-        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         // Create a variable to store the new date
         LocalDate offenseDate;
         // Try conversion of date
