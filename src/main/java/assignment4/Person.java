@@ -147,9 +147,21 @@ public class Person {
                 setSuspended(true);
             }
         }
-    }
 
-    return "Success";
+        // Print to a txt file
+        try {
+                FileOutputStream fileStream = new FileOutputStream("Demerit.txt", true);
+                PrintWriter outFS = new PrintWriter(fileStream);
+                outFS.println(personID + " " + offenseDate.format(dateFormat) + " " + points);
+                outFS.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("File could not be created or opened: " + e.getMessage());
+            }
+        return "Success";
+        }
+        else {
+            return "Failed";
+        }
     }
 
 
