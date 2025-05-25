@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.api.Test;
@@ -56,8 +56,8 @@ public class TestAddDemeritPoints {
         }
 
     // Clears output file before the test
-    @BeforeAll
-    public static void clearValidOutput() throws IOException {
+    @BeforeEach
+    public void clearValidOutput() throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream("Demerit.txt", false))) {
             writer.print("");
         }
