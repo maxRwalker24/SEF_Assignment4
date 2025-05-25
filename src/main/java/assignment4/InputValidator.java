@@ -98,11 +98,17 @@ public class InputValidator {
 
     public boolean isUnder18(String birthday){
         try {
-            //Find way to check if under 18
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate birthdate = LocalDate.parse(birthday, formatter);
+
+            LocalDate today = LocalDate.now();
+
+            Period age = Period.between(birthdate, today);
+
+            return age.getYears() < 18;
         } catch (Exception e) {
-            // TODO: handle exception
+            return false;
         }
-        return false;
     }
 
 

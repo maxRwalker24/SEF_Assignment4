@@ -66,31 +66,61 @@ public class Person {
 
     
     public boolean updatePersonalDetails(String id, String firstName, String lastName, String address, String birthdate, String fileName) {
-    //TODO: This method allows updating a given person's ID, firstName, lastName, address and birthday in a TXT file.
-    //Changing personal details will not affect their demerit points or the suspension status.
-    // All relevant conditions discussed for the addPerson function also need to be considered and checked in the updaterson function.
-    //Condition 1: If a person is under 18, their address cannot be changed.
-    //Condition 2: If a person's birthday is going to be changed, then no other personal detail (i.e, person's ID, firstName, lastName, address) can be changed.
-    //Condition 3: If the first character/digit of a person's ID is an even number, then their ID cannot be changed.
-    //Instruction: If the Person's updated information meets the above conditions and any other conditions you may want to consider,
-    //the Person's information should be updated in the TXT file with the updated information, and the updatePersonalDetails function should return true.
-    //Otherwise, the Person's updated information should not be updated in the TXT file, and the updatePersonalDetails function should return false.
+        InputValidator iv = new InputValidator();
+        boolean somethingChanged = false;
 
-    InputValidator iv = new InputValidator();
-
-    if(birthdate != "NULL"){
-        if (id != "NULL" | firstName != "NULL" | lastName != "NULL" | address != "NULL"){
+        if(!birthdate.equals("NULL")){
+            if (!id.equals("NULL") || !firstName.equals("NULL") || !lastName.equals("NULL") || !address.equals("NULL")){
+                return false;
+            }
+        }
+        else if(Character.isDigit(this.personID.charAt(0)) && Character.getNumericValue(this.personID.charAt(0)) % 2 == 0 && !id.equals("NULL")){
             return false;
         }
-    }
-    else if(this.personID.charAt(0) % 2 == 0 && id != "NULL"){
-        return false;
-    }
+        else if(iv.isUnder18(this.birthdate) && !address.equals("NULL")){
+            return false;
+        }
+        else{
+            if (!id.equals("NULL") && iv.isValidID(id)){
+                this.personID  = id;
+                somethingChanged = true;
+            }
 
+            if (!firstName.equals("NULL")){
+                this.firstName  = firstName;
+                somethingChanged = true;
+            }
 
+            if (!lastName.equals("NULL")){
+                this.lastName  = lastName;
+                somethingChanged = true;
+            }
 
+            if (!address.equals("NULL") && iv.isValidAddress(address)){
+                this.address  = address;
+                somethingChanged = true;
+            }
 
-    return true;
+            if (!birthdate.equals("NULL") && iv.isValidDate(birthdate)){
+                this.birthdate  = birthdate;
+                somethingChanged = true;
+            }
+
+        if(somethingChanged){
+            try {
+                FileOutputStream fileStream = new FileOutputStream(fileName, true);
+                PrintWriter outFS = new PrintWriter(fileStream);
+                outFS.println("UPDATED: " + this.personID + " " + this.firstName + " " + this.lastName + " " + this.address + " " + this.birthdate);
+                outFS.close();
+            } catch (Exception e) {
+                System.out.println("File could not be created or opened: " + e.getMessage());
+            }
+
+            return true;
+        }
+        }
+
+    return false;
     }
     
     
