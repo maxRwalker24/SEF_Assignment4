@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.Test;
 
 public class TestAddDemeritPoints {
     
@@ -138,10 +139,42 @@ public class TestAddDemeritPoints {
     }
 
     // Test over 21 suspensions
+    @Test
+    public void testOver21Suspensions(String date, int demeritPoints) throws Exception {
+        createPersonOver21();
 
+        // Manually enter each point to test stacking demerits
+        // Should not be suspended yet
+        person.addDemeritPoints("10-09-2024", 4);
+        assertEquals(false, person.isSuspended());
+
+        // Should not be suspended yet
+        person.addDemeritPoints("10-10-2024",5);
+        assertEquals(false, person.isSuspended());
+
+        // Should be suspended
+        String result = person.addDemeritPoints("10-11-2024", 5);
+        assertEquals("Success", result);
+        assertEquals(true, person.isSuspended());
+    }
 
     // Test under 21 suspensions
+    @Test
+    public void testUnder21Suspensions(String date, int demeritPoints) throws Exception {
+        createPersonUnder21();
 
+        // Manually enter each point to test stacking demerits
+        // Should not be suspended yet
+        person.addDemeritPoints("10-09-2024", 2);
+        assertEquals(false, person.isSuspended());
 
+        // Should not be suspended yet
+        person.addDemeritPoints("10-10-2024",2);
+        assertEquals(false, person.isSuspended());
 
+        // Should be suspended
+        String result = person.addDemeritPoints("10-11-2024", 3);
+        assertEquals("Success", result);
+        assertEquals(true, person.isSuspended());
+    }
 }

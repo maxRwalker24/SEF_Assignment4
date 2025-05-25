@@ -137,13 +137,13 @@ public class Person {
         // Check the demerits of the driver and set to isSuspended if needed
         // Start with under 21's
         if (userAge < 21) {
-            if (driversRecentDemeritPoints >= 7) {
+            if (driversRecentDemeritPoints > 6) {
                 setSuspended(true);
             }
         }
         // Moving on to all remaining drivers
         else {
-            if (driversRecentDemeritPoints >= 13) {
+            if (driversRecentDemeritPoints > 12) {
                 setSuspended(true);
             }
         }
