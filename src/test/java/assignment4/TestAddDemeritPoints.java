@@ -140,7 +140,7 @@ public class TestAddDemeritPoints {
 
     // Test over 21 suspensions
     @Test
-    public void testOver21Suspensions(String date, int demeritPoints) throws Exception {
+    public void testOver21Suspensions() throws Exception {
         createPersonOver21();
 
         // Manually enter each point to test stacking demerits
@@ -160,7 +160,7 @@ public class TestAddDemeritPoints {
 
     // Test under 21 suspensions
     @Test
-    public void testUnder21Suspensions(String date, int demeritPoints) throws Exception {
+    public void testUnder21Suspensions() throws Exception {
         createPersonUnder21();
 
         // Manually enter each point to test stacking demerits
