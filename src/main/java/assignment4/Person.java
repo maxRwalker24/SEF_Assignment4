@@ -65,7 +65,7 @@ public class Person {
     }
 
     
-    public boolean updatePersonalDetails(String id, String firstName, String lastName, String address, String birthdate) {
+    public boolean updatePersonalDetails(String id, String firstName, String lastName, String address, String birthdate, String fileName) {
     //TODO: This method allows updating a given person's ID, firstName, lastName, address and birthday in a TXT file.
     //Changing personal details will not affect their demerit points or the suspension status.
     // All relevant conditions discussed for the addPerson function also need to be considered and checked in the updaterson function.
@@ -76,6 +76,16 @@ public class Person {
     //the Person's information should be updated in the TXT file with the updated information, and the updatePersonalDetails function should return true.
     //Otherwise, the Person's updated information should not be updated in the TXT file, and the updatePersonalDetails function should return false.
 
+    InputValidator iv = new InputValidator();
+
+    if(birthdate != "NULL"){
+        if (id != "NULL" | firstName != "NULL" | lastName != "NULL" | address != "NULL"){
+            return false;
+        }
+    }
+    else if(this.personID.charAt(0) % 2 == 0 && id != "NULL"){
+        return false;
+    }
 
 
 

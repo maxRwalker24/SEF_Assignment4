@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 
 
 
@@ -92,6 +94,15 @@ public class InputValidator {
             return true;
         }
         else return false;
+    }
+
+    public boolean isUnder18(String birthday){
+        try {
+            //Find way to check if under 18
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return false;
     }
 
 
