@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.api.Test;
@@ -56,8 +56,8 @@ public class TestAddDemeritPoints {
         }
 
     // Clears output file before the test
-    @BeforeEach
-    public void clearValidOutput() throws IOException {
+    @BeforeAll
+    public static void clearValidOutput() throws IOException {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream("Demerit.txt", false))) {
             writer.print("");
         }
@@ -141,6 +141,8 @@ public class TestAddDemeritPoints {
     // Test over 21 suspensions
     @Test
     public void testOver21Suspensions() throws Exception {
+        // Clear output file
+        Files.write(Paths.get("Demerit.txt"), new byte[0]);
         createPersonOver21();
 
         // Manually enter each point to test stacking demerits
@@ -161,6 +163,8 @@ public class TestAddDemeritPoints {
     // Test under 21 suspensions
     @Test
     public void testUnder21Suspensions() throws Exception {
+        // Clear output file
+        Files.write(Paths.get("Demerit.txt"), new byte[0]);
         createPersonUnder21();
 
         // Manually enter each point to test stacking demerits
