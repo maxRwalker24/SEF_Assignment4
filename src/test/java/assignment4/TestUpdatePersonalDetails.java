@@ -27,7 +27,11 @@ public class TestUpdatePersonalDetails {
     private static final Path SAME_EXPECTED_OUTPUT_PATH = Paths.get("Update_SAME_expected.txt");
     private static final Path SAME_EVEN_EXPECTED_OUTPUT_PATH = Paths.get("Update_SAME_EVEN_expected.txt");
 
-    public Person createYounger18() throws Exception{
+    private static Person younger18;
+    private static Person older18;
+    private static Person evenPerson;
+
+    public static Person createYounger18() throws Exception{
         Person younger18 = new Person();
         younger18.setPersonID("36s_d#@fAJ");
         younger18.setFirstName("Ajay");
@@ -52,7 +56,7 @@ public class TestUpdatePersonalDetails {
         return younger18;
     }
 
-    public Person createOlder18() throws Exception{
+    public static Person createOlder18() throws Exception{
         Person older18 = new Person();
         older18.setPersonID("35s_d%&fAB");
         older18.setFirstName("Paul");
@@ -77,7 +81,7 @@ public class TestUpdatePersonalDetails {
         return older18;
     }
 
-    public Person createEvenID() throws Exception{
+    public static Person createEvenID() throws Exception{
         Person evenPerson = new Person();
         evenPerson.setPersonID("26s_d#@fAJ");
         evenPerson.setFirstName("Evan");
@@ -113,9 +117,9 @@ public class TestUpdatePersonalDetails {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream("Update_SAME.txt", false))) {
             writer.print("");
         }
-        // older18 = createOlder18();
-        // younger18 = createYounger18();
-        // evenPerson = createEvenID();
+        older18 = createOlder18();
+        younger18 = createYounger18();
+        evenPerson = createEvenID();
 
     }
 
@@ -208,5 +212,4 @@ public class TestUpdatePersonalDetails {
         assertFalse(younger18.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME.txt"));
     }
 
-    //test
 }
