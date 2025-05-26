@@ -24,19 +24,7 @@ public class Person {
     private HashMap<LocalDate, Integer> demeritPoints = new HashMap<LocalDate, Integer>(); // A variable that holds the demerit points with the offense day
     private boolean isSuspended = false;
    
-    // Constructor - unlikely to be used (addPerson() will update object created by default constructor)
-    
-    // public Person(String personID, String firstName, String lastName, String address, String birthdate) {
-    //     this.personID = personID;
-    //     this.firstName = firstName;
-    //     this.lastName = lastName;
-    //     this.address = address;
-    //     this.birthdate = birthdate;
-    //     this.demeritPoints = new HashMap<>(); 
-    //     this.isSuspended = false; // default value
-    // }
-
-   
+ 
     public boolean addPerson (String personID, String firstName, String lastName, String address, String birthdate) {
 
         InputValidator iv = new InputValidator();
