@@ -69,48 +69,49 @@ public class Person {
 
     
     public boolean updatePersonalDetails(String id, String firstName, String lastName, String address, String birthdate, String fileName) {
-        InputValidator iv = new InputValidator();
-        boolean somethingChanged = false;
+        InputValidator iv = new InputValidator(); //Create an input validator to check conditions from addPerson function
+        boolean somethingChanged = false; //Boolean to keep track if something was changed
 
-        if(!birthdate.equals("NULL")){
+        if(!birthdate.equals("NULL")){ 
             if (!id.equals("NULL") || !firstName.equals("NULL") || !lastName.equals("NULL") || !address.equals("NULL")){
-                return false;
+                return false; // Makes sure that birthday as well as another field cant be changed at the same time
             }
         }
         else if(Character.isDigit(this.personID.charAt(0)) && Character.getNumericValue(this.personID.charAt(0)) % 2 == 0 && !id.equals("NULL")){
-            return false;
+            return false; // Makes sure person with an id that starts with an even number cant change their id
         }
         else if(iv.isUnder18(this.birthdate) && !address.equals("NULL")){
-            return false;
+            return false; //makes sure a person thats under 18 cant change their addess
         }
-        else{
+        else{ //Changes persons details if they're valid
             if (!id.equals("NULL") && iv.isValidID(id)){
                 this.personID  = id;
-                somethingChanged = true;
+                somethingChanged = true; //something has changed
             }
 
             if (!firstName.equals("NULL")){
                 this.firstName  = firstName;
-                somethingChanged = true;
+                somethingChanged = true; //something has changed
             }
 
             if (!lastName.equals("NULL")){
                 this.lastName  = lastName;
-                somethingChanged = true;
+                somethingChanged = true; //something has changed
             }
 
             if (!address.equals("NULL") && iv.isValidAddress(address)){
                 this.address  = address;
-                somethingChanged = true;
+                somethingChanged = true; //something has changed
             }
 
             if (!birthdate.equals("NULL") && iv.isValidDate(birthdate)){
                 this.birthdate  = birthdate;
-                somethingChanged = true;
+                somethingChanged = true; //something has changed
             }
 
-        if(somethingChanged == true){
+        if(somethingChanged == true){ //if something has changed
             try {
+                //Write the update to the file
                 FileOutputStream fileStream = new FileOutputStream(fileName, true);
                 PrintWriter outFS = new PrintWriter(fileStream);
                 outFS.println("UPDATED: " + this.personID + " " + this.firstName + " " + this.lastName + " " + this.address + " " + this.birthdate);
@@ -119,7 +120,7 @@ public class Person {
                 System.out.println("File could not be created or opened: " + e.getMessage());
             }
 
-            return true;
+            return true; //return true if something was successfully changed
         }
         }
 

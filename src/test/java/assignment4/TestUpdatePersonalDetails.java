@@ -19,6 +19,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 public class TestUpdatePersonalDetails {
 
+    //Valid outputs and input paths
     private static final Path CHANGED_VALID_OUTPUT_PATH = Paths.get("Update_CHANGED.txt");
     private static final Path SAME_VALID_OUTPUT_PATH = Paths.get("Update_SAME.txt");
     private static final Path SAME_EVEN_VALID_OUTPUT_PATH = Paths.get("Update_SAME_EVEN.txt");
@@ -31,6 +32,7 @@ public class TestUpdatePersonalDetails {
     private static Person older18;
     private static Person evenPerson;
 
+    //Creating a person thats younger than 18 to test condition
     public static Person createYounger18() throws Exception{
         Person younger18 = new Person();
         younger18.setPersonID("36s_d#@fAJ");
@@ -39,6 +41,7 @@ public class TestUpdatePersonalDetails {
         younger18.setAddress("26|YeahNah Road|Melbourne|Victoria|Australia");
         younger18.setBirthdate("26-02-2014");
 
+        // Create a text file with the details
         try {
             FileOutputStream fileStream = new FileOutputStream("Update_SAME.txt", true);
             PrintWriter outFS = new PrintWriter(fileStream);
@@ -56,6 +59,7 @@ public class TestUpdatePersonalDetails {
         return younger18;
     }
 
+    // Create a person thats older than 18, all valid inputs are used with this gut
     public static Person createOlder18() throws Exception{
         Person older18 = new Person();
         older18.setPersonID("35s_d%&fAB");
@@ -64,6 +68,7 @@ public class TestUpdatePersonalDetails {
         older18.setAddress("17|Landscape Drive|Melbourne|Victoria|Australia");
         older18.setBirthdate("10-09-1999");
 
+        // Create a text file with the details
         try {
             FileOutputStream fileStream = new FileOutputStream("Update_CHANGED.txt", true);
             PrintWriter outFS = new PrintWriter(fileStream);
@@ -81,6 +86,7 @@ public class TestUpdatePersonalDetails {
         return older18;
     }
 
+    //Create a person with an where the first number of his ID is even
     public static Person createEvenID() throws Exception{
         Person evenPerson = new Person();
         evenPerson.setPersonID("26s_d#@fAJ");
@@ -89,6 +95,7 @@ public class TestUpdatePersonalDetails {
         evenPerson.setAddress("22|Salmon Road|Melbourne|Victoria|Australia");
         evenPerson.setBirthdate("21-04-2000");
 
+        // Create a text file with the details
         try {
             FileOutputStream fileStream = new FileOutputStream("Update_SAME_EVEN.txt", true);
             PrintWriter outFS = new PrintWriter(fileStream);
@@ -106,8 +113,10 @@ public class TestUpdatePersonalDetails {
         return evenPerson;
     }
     
+    //Before all tests....
     @BeforeAll
     public static void clearValidOutput() throws Exception {
+        //clear the output files
         try (PrintWriter writer = new PrintWriter(new FileOutputStream("Update_CHANGED.txt", false))) {
             writer.print("");
         }
@@ -117,14 +126,18 @@ public class TestUpdatePersonalDetails {
         try (PrintWriter writer = new PrintWriter(new FileOutputStream("Update_SAME.txt", false))) {
             writer.print("");
         }
+
+        //create the people to test on
         older18 = createOlder18();
         younger18 = createYounger18();
         evenPerson = createEvenID();
 
     }
 
+    //After all the tests//
     @AfterAll
     public static void verifyUpdateFileOutput() throws IOException {
+        //Check if the output files match the expected output files, if not give the messgae
         List<String> actualChangedLines = Files.readAllLines(CHANGED_VALID_OUTPUT_PATH);
         List<String> actualSameLines = Files.readAllLines(SAME_VALID_OUTPUT_PATH);
         List<String> actualSameEVENLines = Files.readAllLines(SAME_EVEN_VALID_OUTPUT_PATH);
@@ -138,11 +151,7 @@ public class TestUpdatePersonalDetails {
         Assertions.assertEquals(expectedSameEVENLines, actualSameEVENLines, "Final output in UPDATE_SAME_EVEN.txt does not match expected output.");
     }
 
-    // @BeforeEach
-    // public static void resetPeople() throws Exception{
-
-    // }
-
+    //Tests run for each line of the csv source
     @ParameterizedTest
     @CsvSource({
         "95s_d%&fAB, Sam, Donk, 32|Changed Drive|Melbourne|Victoria|Australia, NULL",
@@ -150,11 +159,13 @@ public class TestUpdatePersonalDetails {
         "75s_d%&fAB, Sharon, Parm, 62|OnceMore Drive|Melbourne|Victoria|Australia, NULL"
     })
     void testUpdatePersonalDetails_ValidInputs(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
-        //Person older18 = createOlder18();
+
         assertTrue(older18.updatePersonalDetails(id, firstName, lastName, address, birthdate,"Update_CHANGED.txt"));
+        //Make sure function returns true as all inputs are valid
 
         List<String> lines = Files.readAllLines(CHANGED_VALID_OUTPUT_PATH);
         String lastLine = lines.get(lines.size() - 1);
+        //read the last line of the output file and check it against the expectedLine
 
         String expectedLine = ("UPDATED: " + id + " " + firstName + " " + lastName + " " + address + " 10-09-1999");
 
@@ -169,8 +180,8 @@ public class TestUpdatePersonalDetails {
         "NULL, NULL, NULL, 62|OnceMore Drive|Melbourne|Victoria|Australia, NULL"
     })
     void testUpdatePersonalDetails_ValidAddressUnder18(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
-        //Person younger18 = createYounger18();
-        
+
+        //Make sure function returns false
         assertFalse(younger18.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME.txt"));
 
     }
@@ -182,8 +193,8 @@ public class TestUpdatePersonalDetails {
         "NULL, NULL, Parm, NULL, 23-12-1992"
     })
     void testUpdatePersonalDetails_ValidBirthdayValidDetails(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
-        //Person younger18 = createYounger18();
-        
+
+        //Make sure function returns false
         assertFalse(younger18.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME.txt"));
 
     }
@@ -195,8 +206,8 @@ public class TestUpdatePersonalDetails {
         "75s_d%&fAB, NULL, NULL, NULL, NULL"
     })
     void testUpdatePersonalDetails_ValidIdEvenCurrId(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
-        //Person evenPerson = createEvenID();
-        
+
+        //Make sure function returns false
         assertFalse(evenPerson.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME_EVEN.txt"));
     }
 
@@ -207,8 +218,8 @@ public class TestUpdatePersonalDetails {
         "NULL, NULL, NULL, NULL, 23.12.1992"
     })
     void testUpdatePersonalDetails_InvalidBirthday(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
-        //Person younger18 = createYounger18();
-        
+
+        //Make sure function returns false
         assertFalse(younger18.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME.txt"));
     }
 
