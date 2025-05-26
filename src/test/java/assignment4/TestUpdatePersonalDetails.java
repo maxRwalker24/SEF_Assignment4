@@ -211,8 +211,4 @@ public class TestUpdatePersonalDetails {
         
         assertFalse(younger18.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME.txt"));
     }
-
-    //TEST
-
-
 }
