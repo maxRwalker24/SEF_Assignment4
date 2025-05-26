@@ -28,7 +28,7 @@ public class TestAddDemeritPoints {
 
     // Paths to txt file's used for testing
     private static final Path VALID_OUTPUT_PATH = Paths.get("Demerit.txt");
-    private static final Path EXPECTED_OUTPUT_PATH = Paths.get("Demerit_expected.txt");
+    // private static final Path EXPECTED_OUTPUT_PATH = Paths.get("Demerit_expected.txt");
 
 
     // Initialising a under 21 year old for testing
