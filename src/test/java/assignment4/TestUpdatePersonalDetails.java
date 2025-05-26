@@ -134,8 +134,8 @@ public class TestUpdatePersonalDetails {
         List<String> expectedSameEVENLines = Files.readAllLines(SAME_EVEN_EXPECTED_OUTPUT_PATH);
 
         Assertions.assertEquals(expectedChangedLines, actualChangedLines, "Final output in UPDATE_CHANGED.txt does not match expected output.");
-        Assertions.assertEquals(actualSameLines, expectedSameLines, "Final output in UPDATE_SAME.txt does not match expected output.");
-        Assertions.assertEquals(actualSameEVENLines, expectedSameEVENLines, "Final output in UPDATE_SAME_EVEN.txt does not match expected output.");
+        Assertions.assertEquals(expectedSameLines, actualSameLines, "Final output in UPDATE_SAME.txt does not match expected output.");
+        Assertions.assertEquals(expectedSameEVENLines, actualSameEVENLines, "Final output in UPDATE_SAME_EVEN.txt does not match expected output.");
     }
 
     // @BeforeEach
@@ -145,7 +145,7 @@ public class TestUpdatePersonalDetails {
 
     @ParameterizedTest
     @CsvSource({
-        "15s_d%&fAB, Sam, Donk, 32|Changed Drive|Melbourne|Victoria|Australia, NULL",
+        "95s_d%&fAB, Sam, Donk, 32|Changed Drive|Melbourne|Victoria|Australia, NULL",
         "55s_d%&fAB, Bob, John, 48|Again Road|Melbourne|Victoria|Australia, NULL",
         "75s_d%&fAB, Sharon, Parm, 62|OnceMore Drive|Melbourne|Victoria|Australia, NULL"
     })

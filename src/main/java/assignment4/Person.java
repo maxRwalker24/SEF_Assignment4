@@ -113,7 +113,7 @@ public class Person {
             try {
                 FileOutputStream fileStream = new FileOutputStream(fileName, true);
                 PrintWriter outFS = new PrintWriter(fileStream);
-                outFS.println("AAAAAAAAA UPDATED: " + this.personID + " " + this.firstName + " " + this.lastName + " " + this.address + " " + this.birthdate);
+                outFS.println("UPDATED: " + this.personID + " " + this.firstName + " " + this.lastName + " " + this.address + " " + this.birthdate);
                 outFS.close();
             } catch (Exception e) {
                 System.out.println("File could not be created or opened: " + e.getMessage());
