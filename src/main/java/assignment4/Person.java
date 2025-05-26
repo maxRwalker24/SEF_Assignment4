@@ -3,16 +3,16 @@ package assignment4;
 import java.util.HashMap;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.Date;
+// import java.util.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import java.io.PrintWriter;
-// import java.io.FileOutputStream;
+
 // import java.io.IOException;
-import java.text.SimpleDateFormat;
+// import java.text.SimpleDateFormat;
 
 public class Person {
 
@@ -23,7 +23,9 @@ public class Person {
     private String birthdate;
     private HashMap<LocalDate, Integer> demeritPoints; // A variable that holds the demerit points with the offense day
     private boolean isSuspended;
-
+   
+    // Constructor - unlikely to be used (addPerson() will update object created by default constructor)
+    
     // public Person(String personID, String firstName, String lastName, String address, String birthdate) {
     //     this.personID = personID;
     //     this.firstName = firstName;
@@ -34,19 +36,20 @@ public class Person {
     //     this.isSuspended = false; // default value
     // }
 
-    // Max to implement
+   
     public boolean addPerson (String personID, String firstName, String lastName, String address, String birthdate) {
 
         InputValidator iv = new InputValidator();
 
         if (iv.isValidDate(birthdate) && iv.isValidID(personID) && iv.isValidAddress(address)) {
+            this.personID = personID;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.address = address;
+            this.birthdate = birthdate;
+            this.demeritPoints = new HashMap<>(); 
+            this.isSuspended = false; // default value  
 
-            Person person = new Person();
-            person.personID = personID;
-            person.firstName = firstName;
-            person.lastName = lastName;
-            person.address = address;
-            person.birthdate = birthdate;
 
             try {
                 FileOutputStream fileStream = new FileOutputStream("Person.txt", true);
