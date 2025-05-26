@@ -137,7 +137,7 @@ public class TestUpdatePersonalDetails {
         List<String> lines = Files.readAllLines(CHANGED_VALID_OUTPUT_PATH);
         String lastLine = lines.get(lines.size() - 1);
 
-        String expectedLine = (id + " " + firstName + " " + lastName + " " + address + "10-09-1999");
+        String expectedLine = ("UPDATED: " + id + " " + firstName + " " + lastName + " " + address + " 10-09-1999");
 
         assertEquals(expectedLine, lastLine, "Output doesn't match expected output.");
 
