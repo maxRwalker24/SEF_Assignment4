@@ -27,9 +27,9 @@ public class TestUpdatePersonalDetails {
     private static final Path SAME_EXPECTED_OUTPUT_PATH = Paths.get("Update_SAME_expected.txt");
     private static final Path SAME_EVEN_EXPECTED_OUTPUT_PATH = Paths.get("Update_SAME_EVEN_expected.txt");
 
-    private static Person older18;
-    private static Person younger18;
-    private static Person evenPerson;
+    // private static Person older18;
+    // private static Person younger18;
+    // private static Person evenPerson;
 
     public Person createYounger18() throws Exception{
         Person younger18 = new Person();
@@ -150,6 +150,7 @@ public class TestUpdatePersonalDetails {
         "75s_d%&fAB, Sharon, Parm, 62|OnceMore Drive|Melbourne|Victoria|Australia, NULL"
     })
     void testUpdatePersonalDetails_ValidInputs(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
+        Person older18 = createOlder18();
         assertTrue(older18.updatePersonalDetails(id, firstName, lastName, address, birthdate,"Update_CHANGED.txt"));
 
         List<String> lines = Files.readAllLines(CHANGED_VALID_OUTPUT_PATH);
@@ -168,6 +169,8 @@ public class TestUpdatePersonalDetails {
         "NULL, NULL, NULL, 62|OnceMore Drive|Melbourne|Victoria|Australia, NULL"
     })
     void testUpdatePersonalDetails_ValidAddressUnder18(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
+        Person younger18 = createYounger18();
+        
         assertFalse(younger18.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME.txt"));
 
     }
@@ -179,6 +182,8 @@ public class TestUpdatePersonalDetails {
         "NULL, NULL, Parm, NULL, 23-12-1992"
     })
     void testUpdatePersonalDetails_ValidBirthdayValidDetails(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
+        Person younger18 = createYounger18();
+        
         assertFalse(younger18.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME.txt"));
 
     }
@@ -190,6 +195,8 @@ public class TestUpdatePersonalDetails {
         "75s_d%&fAB, NULL, NULL, NULL, NULL"
     })
     void testUpdatePersonalDetails_ValidIdEvenCurrId(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
+        Person evenPerson = createEvenID();
+        
         assertFalse(evenPerson.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME_EVEN.txt"));
     }
 
@@ -200,6 +207,8 @@ public class TestUpdatePersonalDetails {
         "NULL, NULL, NULL, NULL, 23.12.1992"
     })
     void testUpdatePersonalDetails_InvalidBirthday(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
+        Person younger18 = createYounger18();
+        
         assertFalse(younger18.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME.txt"));
     }
 
