@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
+// import java.util.HashMap;
 import java.util.List;
 
 // import org.junit.jupiter.api.AfterAll;
@@ -32,27 +32,17 @@ public class TestAddDemeritPoints {
 
 
     // Initialising a under 21 year old for testing
-    public void createPersonUnder21() throws Exception {
+    public Person createPersonUnder21() throws Exception {
         person = new Person();
-        person.setPersonID("56s_d%&fAB");
-        person.setFirstName("Anthony");
-        person.setLastName("Duiker");
-        person.setAddress("29|Landscape Drive|Melbourne|Victoria|Australia");
-        person.setBirthdate("10-09-2007");
-        person.setDemeritPoints(new HashMap<>());
-        person.setSuspended(false);
+        person.addPerson("56s_d%&fAB", "Anthony", "Duiker", "29|Landscape Drive|Melbourne|Victoria|Australia", "10-09-2007");
+        return person;
         }
 
     // Initialising a over 21 year old for testing
-    public void createPersonOver21() throws Exception {
+    public Person createPersonOver21() throws Exception {
         person = new Person();
-        person.setPersonID("56s_d%&fAB");
-        person.setFirstName("Anthony");
-        person.setLastName("Duiker");
-        person.setAddress("29|Landscape Drive|Melbourne|Victoria|Australia");
-        person.setBirthdate("10-09-2001");
-        person.setDemeritPoints(new HashMap<>());
-        person.setSuspended(false);
+        person.addPerson("56s_d%&fAB", "Anthony", "Duiker", "29|Landscape Drive|Melbourne|Victoria|Australia", "10-09-2001");
+        return person;
         }
 
     // Clears output file before the test
@@ -90,7 +80,7 @@ public class TestAddDemeritPoints {
     // Testing some valid inputs
     public void testDemeritValidInput(String date, int demeritPoints) throws Exception {
         // Create person for test case
-        createPersonUnder21();
+        person = createPersonUnder21();
 
         // Run the function with input data
         String outcome = person.addDemeritPoints(date, demeritPoints);
@@ -117,7 +107,7 @@ public class TestAddDemeritPoints {
     // Testing for invalid date inputs
     public void testDemeritInvalidDates(String date, int demeritPoints) throws Exception {
         // Create person for test case 
-        createPersonOver21();
+        person = createPersonOver21();
 
         // Run the function with input data
         String outcome = person.addDemeritPoints(date, demeritPoints);
@@ -135,7 +125,7 @@ public class TestAddDemeritPoints {
 
     // Testing for invalid demerit points
     public void testDemeritInavalidInteger(String date, int demeritPoints) throws Exception {
-        createPersonOver21();
+        person = createPersonOver21();
         String outcome = person.addDemeritPoints(date, demeritPoints);
         assertEquals("Failed", outcome);
     }
@@ -145,7 +135,7 @@ public class TestAddDemeritPoints {
     public void testOver21Suspensions() throws Exception {
         // Clear output file
         Files.write(Paths.get("Demerit.txt"), new byte[0]);
-        createPersonOver21();
+        person = createPersonOver21();
 
         // Manually enter each point to test stacking demerits
         // Should not be suspended yet
@@ -167,7 +157,7 @@ public class TestAddDemeritPoints {
     public void testUnder21Suspensions() throws Exception {
         // Clear output file
         Files.write(Paths.get("Demerit.txt"), new byte[0]);
-        createPersonUnder21();
+        person = createPersonUnder21();
 
         // Manually enter each point to test stacking demerits
         // Should not be suspended yet
