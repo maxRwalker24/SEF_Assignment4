@@ -27,10 +27,6 @@ public class TestUpdatePersonalDetails {
     private static final Path SAME_EXPECTED_OUTPUT_PATH = Paths.get("Update_SAME_expected.txt");
     private static final Path SAME_EVEN_EXPECTED_OUTPUT_PATH = Paths.get("Update_SAME_EVEN_expected.txt");
 
-    // private static Person older18;
-    // private static Person younger18;
-    // private static Person evenPerson;
-
     public Person createYounger18() throws Exception{
         Person younger18 = new Person();
         younger18.setPersonID("36s_d#@fAJ");
@@ -211,4 +207,6 @@ public class TestUpdatePersonalDetails {
         
         assertFalse(younger18.updatePersonalDetails(id, firstName, lastName, address, birthdate, "Update_SAME.txt"));
     }
+
+    //test
 }
