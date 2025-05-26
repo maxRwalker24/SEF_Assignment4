@@ -13,6 +13,7 @@ import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -103,9 +104,16 @@ public class TestUpdatePersonalDetails {
     
     @BeforeAll
     public static void clearValidOutput() throws IOException {
-        try (PrintWriter writer = new PrintWriter(new FileOutputStream("Demerit.txt", false))) {
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream("Update_CHANGED.txt", false))) {
             writer.print("");
         }
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream("Update_SAME_EVEN.txt", false))) {
+            writer.print("");
+        }
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream("Update_SAME.txt", false))) {
+            writer.print("");
+        }
+
     }
 
     @AfterAll
@@ -122,6 +130,11 @@ public class TestUpdatePersonalDetails {
         Assertions.assertEquals(actualSameLines, expectedSameLines, "Final output in UPDATE_SAME.txt does not match expected output.");
         Assertions.assertEquals(actualSameEVENLines, expectedSameEVENLines, "Final output in UPDATE_SAME_EVEN.txt does not match expected output.");
     }
+
+    // @BeforeEach
+    // public static void createPerson() throws Exception{
+
+    // }
 
     @ParameterizedTest
     @CsvSource({
