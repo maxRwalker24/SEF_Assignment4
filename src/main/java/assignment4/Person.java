@@ -21,8 +21,8 @@ public class Person {
     private String lastName;
     private String address;
     private String birthdate;
-    private HashMap<LocalDate, Integer> demeritPoints; // A variable that holds the demerit points with the offense day
-    private boolean isSuspended;
+    private HashMap<LocalDate, Integer> demeritPoints = new HashMap<LocalDate, Integer>(); // A variable that holds the demerit points with the offense day
+    private boolean isSuspended = false;
    
     // Constructor - unlikely to be used (addPerson() will update object created by default constructor)
     
@@ -145,9 +145,9 @@ public class Person {
         }
 
        
-        if(this.demeritPoints == null) {
-            this.demeritPoints.put(offenseDate, points);
-        }
+        
+        this.demeritPoints.put(offenseDate, points);
+        
 
 
         // Now the check for license suspension is started
