@@ -109,7 +109,7 @@ public class Person {
                 somethingChanged = true;
             }
 
-        if(somethingChanged){
+        if(somethingChanged == true){
             try {
                 FileOutputStream fileStream = new FileOutputStream(fileName, true);
                 PrintWriter outFS = new PrintWriter(fileStream);
