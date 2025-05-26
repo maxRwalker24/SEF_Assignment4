@@ -146,7 +146,7 @@ public class TestUpdatePersonalDetails {
     @ParameterizedTest
     @CsvSource({
         "35s_d%&fAB, Sam, Donk, 32|Changed Drive|Melbourne|Victoria|Australia, NULL",
-        "65s_d%&fAB, Bob, John, 48|Again Road|Melbourne|Victoria|Australia, NULL",
+        "55s_d%&fAB, Bob, John, 48|Again Road|Melbourne|Victoria|Australia, NULL",
         "75s_d%&fAB, Sharon, Parm, 62|OnceMore Drive|Melbourne|Victoria|Australia, NULL"
     })
     void testUpdatePersonalDetails_ValidInputs(String id, String firstName, String lastName, String address, String birthdate) throws Exception {
