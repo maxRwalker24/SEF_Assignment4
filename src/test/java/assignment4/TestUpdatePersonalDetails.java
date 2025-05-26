@@ -138,10 +138,10 @@ public class TestUpdatePersonalDetails {
         Assertions.assertEquals(actualSameEVENLines, expectedSameEVENLines, "Final output in UPDATE_SAME_EVEN.txt does not match expected output.");
     }
 
-    @BeforeEach
-    public static void resetPeople() throws Exception{
+    // @BeforeEach
+    // public static void resetPeople() throws Exception{
 
-    }
+    // }
 
     @ParameterizedTest
     @CsvSource({
