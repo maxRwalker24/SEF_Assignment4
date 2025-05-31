@@ -174,5 +174,5 @@ public class TestAddDemeritPoints {
         assertEquals(true, person.isSuspended());
     }
 
-    //TEST
+    
 }
