@@ -37,6 +37,12 @@ public class TestUpdatePersonalDetails {
         Person younger18 = new Person();
         younger18.addPerson("36s_d#@fAJ", "Ajay", "Peeris", "26|YeahNah Road|Melbourne|Victoria|Australia", "26-02-2014");
 
+        //Delete the line from Person.txt for presentation purposes, (making sure expected matches output)
+        List<String> lines = Files.readAllLines(Paths.get("Person.txt"));
+        if (!lines.isEmpty()) {
+            lines.remove(lines.size() - 1);
+            Files.write(Paths.get("Person.txt"), lines);
+        }
 
         // Create a text file with the details
         try {
@@ -60,7 +66,13 @@ public class TestUpdatePersonalDetails {
     public static Person createOlder18() throws Exception{
         Person older18 = new Person();
         older18.addPerson("35s_d%&fAB", "Paul", "Vennat", "17|Landscape Drive|Melbourne|Victoria|Australia", "10-09-1999");
-       
+
+        //Delete the line from Person.txt for presentation purposes, (making sure expected matches output)
+        List<String> lines = Files.readAllLines(Paths.get("Person.txt"));
+        if (!lines.isEmpty()) {
+            lines.remove(lines.size() - 1);
+            Files.write(Paths.get("Person.txt"), lines);
+        }
 
         // Create a text file with the details
         try {
@@ -71,7 +83,7 @@ public class TestUpdatePersonalDetails {
                 older18.getLastName() + " " + older18.getAddress() + " " + older18.getBirthdate());
 
             outFS.close();
-        } 
+        }
         
         catch (FileNotFoundException e) {
             System.out.println("File could not be created or opened: " + e.getMessage());
@@ -84,6 +96,13 @@ public class TestUpdatePersonalDetails {
     public static Person createEvenID() throws Exception{
         Person evenPerson = new Person();
         evenPerson.addPerson("26s_d#@fAJ", "Evan", "Nombour", "22|Salmon Road|Melbourne|Victoria|Australia","21-04-2000");
+
+        //Delete the line from Person.txt for presentation purposes, (making sure expected matches output)
+        List<String> lines = Files.readAllLines(Paths.get("Person.txt"));
+        if (!lines.isEmpty()) {
+            lines.remove(lines.size() - 1);
+            Files.write(Paths.get("Person.txt"), lines);
+        }
 
         // Create a text file with the details
         try {
