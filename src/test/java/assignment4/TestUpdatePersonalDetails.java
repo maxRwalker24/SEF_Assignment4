@@ -35,11 +35,8 @@ public class TestUpdatePersonalDetails {
     //Creating a person thats younger than 18 to test condition
     public static Person createYounger18() throws Exception{
         Person younger18 = new Person();
-        younger18.setPersonID("36s_d#@fAJ");
-        younger18.setFirstName("Ajay");
-        younger18.setLastName("Peeris");
-        younger18.setAddress("26|YeahNah Road|Melbourne|Victoria|Australia");
-        younger18.setBirthdate("26-02-2014");
+        younger18.addPerson("36s_d#@fAJ", "Ajay", "Peeris", "26|YeahNah Road|Melbourne|Victoria|Australia", "26-02-2014");
+
 
         // Create a text file with the details
         try {
@@ -62,11 +59,8 @@ public class TestUpdatePersonalDetails {
     // Create a person thats older than 18, all valid inputs are used with this gut
     public static Person createOlder18() throws Exception{
         Person older18 = new Person();
-        older18.setPersonID("35s_d%&fAB");
-        older18.setFirstName("Paul");
-        older18.setLastName("Vennat");
-        older18.setAddress("17|Landscape Drive|Melbourne|Victoria|Australia");
-        older18.setBirthdate("10-09-1999");
+        older18.addPerson("35s_d%&fAB", "Paul", "Vennat", "17|Landscape Drive|Melbourne|Victoria|Australia", "10-09-1999");
+       
 
         // Create a text file with the details
         try {
@@ -89,11 +83,7 @@ public class TestUpdatePersonalDetails {
     //Create a person with an where the first number of his ID is even
     public static Person createEvenID() throws Exception{
         Person evenPerson = new Person();
-        evenPerson.setPersonID("26s_d#@fAJ");
-        evenPerson.setFirstName("Evan");
-        evenPerson.setLastName("Nombour");
-        evenPerson.setAddress("22|Salmon Road|Melbourne|Victoria|Australia");
-        evenPerson.setBirthdate("21-04-2000");
+        evenPerson.addPerson("26s_d#@fAJ", "Evan", "Nombour", "22|Salmon Road|Melbourne|Victoria|Australia","21-04-2000");
 
         // Create a text file with the details
         try {

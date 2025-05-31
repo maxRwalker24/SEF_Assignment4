@@ -21,22 +21,10 @@ public class Person {
     private String lastName;
     private String address;
     private String birthdate;
-    private HashMap<LocalDate, Integer> demeritPoints; // A variable that holds the demerit points with the offense day
-    private boolean isSuspended;
+    private HashMap<LocalDate, Integer> demeritPoints = new HashMap<LocalDate, Integer>(); // A variable that holds the demerit points with the offense day
+    private boolean isSuspended = false;
    
-    // Constructor - unlikely to be used (addPerson() will update object created by default constructor)
-    
-    // public Person(String personID, String firstName, String lastName, String address, String birthdate) {
-    //     this.personID = personID;
-    //     this.firstName = firstName;
-    //     this.lastName = lastName;
-    //     this.address = address;
-    //     this.birthdate = birthdate;
-    //     this.demeritPoints = new HashMap<>(); 
-    //     this.isSuspended = false; // default value
-    // }
-
-   
+ 
     public boolean addPerson (String personID, String firstName, String lastName, String address, String birthdate) {
 
         InputValidator iv = new InputValidator();
@@ -145,23 +133,18 @@ public class Person {
             return "Failed";
         }
 
-        // Grab the existing hashmap to allow for updating
-        HashMap<LocalDate, Integer> existingPoints = getDemeritPoints();
-        // If the person doesnt have any points create a new hashmap
-        if(existingPoints == null) {
-            existingPoints = new HashMap<>();
-        }
+       
+        
+        this.demeritPoints.put(offenseDate, points);
+        
 
-        // Insert new demerit into the hashMap
-        existingPoints.put(offenseDate, points);
-        setDemeritPoints(existingPoints);
 
         // Now the check for license suspension is started
         int userAge;
 
         // Compare the users birthdate to the current date
         LocalDate currentDate = LocalDate.now();
-        LocalDate userBirthdate = LocalDate.parse(getBirthdate(), dateFormat);
+        LocalDate userBirthdate = LocalDate.parse(this.birthdate, dateFormat);
         userAge = Period.between(userBirthdate, currentDate).getYears();
 
         // Figure out how many existing demerit points the driver has in the last two years
@@ -169,7 +152,7 @@ public class Person {
         int driversRecentDemeritPoints = 0;
 
         // Loop through all hash map entries but only add entries from the last two years
-        for (Map.Entry<LocalDate, Integer> entry : existingPoints.entrySet()) {
+        for (Map.Entry<LocalDate, Integer> entry : this.demeritPoints.entrySet()) {
             LocalDate dateInccured = entry.getKey();
             int pointsIncurred = entry.getValue();
 
@@ -182,13 +165,13 @@ public class Person {
         // Start with under 21's
         if (userAge < 21) {
             if (driversRecentDemeritPoints > 6) {
-                setSuspended(true);
+                this.isSuspended = true;
             }
         }
         // Moving on to all remaining drivers
         else {
             if (driversRecentDemeritPoints > 12) {
-                setSuspended(true);
+                this.isSuspended = true;
             }
         }
 
@@ -238,36 +221,6 @@ public class Person {
     public boolean isSuspended() {
         return isSuspended;
     }
-
-    // Setters
-    public void setPersonID(String personID) {
-        this.personID = personID;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setBirthdate(String birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public void setDemeritPoints(HashMap<LocalDate, Integer> demeritPoints) {
-        this.demeritPoints = demeritPoints;
-    }
-
-    public void setSuspended(boolean suspended) {
-        isSuspended = suspended;
-    }
-
 
 
 }
