@@ -6,12 +6,13 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.time.Period;
-// import java.time.format.DateTimeFormatter;
+
 
 
 
 public class InputValidator {
     
+    // Checks to see if date is formatted correctly
     public boolean isValidDate(String input) {
         try {
             LocalDate.parse(input, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -54,38 +55,6 @@ public class InputValidator {
         String regex = "^\\d+\\|[A-Za-z ]+\\|[A-Za-z ]+\\|Victoria\\|Australia$";
         return address.matches(regex);
     
-        // String [] addressArray = address.split("\\|");
-
-        // if (addressArray.length != 5) {
-        //     return false;
-        // }
-
-        // for (int i = 0; i < addressArray[0].length(); ++i) {
-        //     char ch = addressArray[0].charAt(i);
-        //     if (!Character.isDigit(ch)) {
-        //         return false;
-        //     }
-        // }
-
-        // for (int i = 0; i < addressArray[1].length(); ++i) {
-        //     char ch = addressArray[1].charAt(i);
-        //     if (Character.isDigit(ch)) {
-        //         return false;
-        //     }
-        // }
-
-        // for (int i = 0; i < addressArray[2].length(); ++i) {
-        //     char ch = addressArray[2].charAt(i);
-        //     if (Character.isDigit(ch)) {
-        //         return false;
-        //     }
-        // }
-
-        // if (!addressArray[3].equals("Victoria") || !addressArray[4].equals("Australia")) {
-        //     return false;
-        // }
-
-        // return true;
     }
 
     // Simple function to assess if demerits are within bounds 1-6
@@ -95,7 +64,7 @@ public class InputValidator {
         }
         else return false;
     }
-
+    // Function to check for under 18
     public boolean isUnder18(String birthday){
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -103,6 +72,7 @@ public class InputValidator {
 
             LocalDate today = LocalDate.now();
 
+            // Compare the date of birth to now to get user age
             Period age = Period.between(birthdate, today);
 
             return age.getYears() < 18;

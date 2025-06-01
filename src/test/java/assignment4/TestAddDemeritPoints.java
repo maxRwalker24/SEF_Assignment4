@@ -8,11 +8,9 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-// import java.util.HashMap;
+
 import java.util.List;
 
-// import org.junit.jupiter.api.AfterAll;
-// import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -28,7 +26,6 @@ public class TestAddDemeritPoints {
 
     // Paths to txt file's used for testing
     private static final Path VALID_OUTPUT_PATH = Paths.get("Demerit.txt");
-    // private static final Path EXPECTED_OUTPUT_PATH = Paths.get("Demerit_expected.txt");
 
 
     // Initialising a under 21 year old for testing
@@ -52,22 +49,6 @@ public class TestAddDemeritPoints {
             writer.print("");
         }
     }
-
-    /* 
-    // Verifies output data
-    @AfterAll
-    public static void verifyDemeritFileOutput() throws IOException {
-        // Read actual output
-        List<String> actualLines = Files.readAllLines(VALID_OUTPUT_PATH);
-
-        // Read expected output
-        List<String> expectedLines = Files.readAllLines(EXPECTED_OUTPUT_PATH);
-
-        // Assert equality
-        Assertions.assertEquals(expectedLines, actualLines, "Final output in Demerit.txt does not match expected output.");
-    }
-        */
-    
 
     // TESTS START HERE
     @ParameterizedTest

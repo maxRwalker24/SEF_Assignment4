@@ -3,16 +3,12 @@ package assignment4;
 import java.util.HashMap;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-// import java.util.Date;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import java.io.PrintWriter;
-
-// import java.io.IOException;
-// import java.text.SimpleDateFormat;
 
 public class Person {
 
@@ -27,8 +23,10 @@ public class Person {
  
     public boolean addPerson (String personID, String firstName, String lastName, String address, String birthdate) {
 
+        // Create a new input validator object
         InputValidator iv = new InputValidator();
 
+        // If all criteria meets then create the new person otherwise return false and do not create
         if (iv.isValidDate(birthdate) && iv.isValidID(personID) && iv.isValidAddress(address)) {
             this.personID = personID;
             this.firstName = firstName;
@@ -38,7 +36,7 @@ public class Person {
             this.demeritPoints = new HashMap<>(); 
             this.isSuspended = false; // default value  
 
-
+            // Writing the new person to Person.txt if possible
             try {
                 FileOutputStream fileStream = new FileOutputStream("Person.txt", true);
                 PrintWriter outFS = new PrintWriter(fileStream);
@@ -134,11 +132,8 @@ public class Person {
         }
 
        
-        
         this.demeritPoints.put(offenseDate, points);
         
-
-
         // Now the check for license suspension is started
         int userAge;
 
